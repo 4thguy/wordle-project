@@ -1,0 +1,5 @@
+export enum ValidationResult {
+    EXPIRED = 'EXPIRED',
+    NOT_IN_DICTIONARY = 'NOT_IN_DICTIONARY',
+    IN_DICTIONARY = 'IN_DICTIONARY',
+}
