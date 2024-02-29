@@ -4,7 +4,7 @@ export class TimingLogic {
 	/**
 	 * Sets timeouts to clear caches at the end of the day.
 	 */
-	public setTimeouts(fn: Function): void {
+	public setTimeouts(fn: Function, name?: string): void {
 		if (this.cacheTimeout) {
 			clearTimeout(this.cacheTimeout);
 		}
@@ -14,6 +14,12 @@ export class TimingLogic {
 		this.cacheTimeout = setTimeout(() => {
 			fn();
 		}, timeUntilEndOfDay);
+
+		if (name) {
+			const timeoutIn = new Date(timeUntilEndOfDay);
+			const timeoutString = timeoutIn.toTimeString().split(' ')[0];
+			console.log(`${name} is set to run in ${timeoutString}`);
+		}
 	}
 
 	/**

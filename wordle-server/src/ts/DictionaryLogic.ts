@@ -83,7 +83,7 @@ export class DictionaryLogic {
 		DictionaryLogic.timingLogic.setTimeouts(() => {
 			DictionaryLogic.clearCache();
 			DictionaryLogic.generateCaches();
-		});
+		}, 'DictionaryLogic.generateCaches');
 	}
 
 	/**
@@ -127,6 +127,6 @@ export class DictionaryLogic {
 		DictionaryLogic.cachedWord = '';
 		DictionaryLogic.cachedWordId = 0;
 		DictionaryLogic.cachedDate = '';
-		console.log('Cache cleared!');
+		console.log('Dictionary cache cleared!');
 	}
 }
