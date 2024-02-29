@@ -1,4 +1,4 @@
 export enum AppEvents {
-  ConfigUpdated = 'ConfigUpdated',
-  ServerError = 'ServerError'
+	ConfigUpdated = 'ConfigUpdated',
+	ServerError = 'ServerError',
 }

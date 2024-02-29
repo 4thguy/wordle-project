@@ -1,4 +1,4 @@
 export interface Event {
-  name: string
-  data: any
+	name: string;
+	data: any;
 }
