@@ -1,7 +1,7 @@
 import { DictionaryLogic } from "./DictionaryLogic";
 import { LetterResult } from "wordle-shared/enums/LetterResult";
 import { ValidationResult } from "wordle-shared/enums/ValidationResult";
-import { Word } from "wordle-shared/interfaces/Word";
+import type { Word } from "wordle-shared/interfaces/Word";
 import type { Letter } from "wordle-shared/interfaces/Letter";
 import type { Guess } from "wordle-shared/interfaces/Guess";
 

@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
 import { Config } from 'wordle-shared/Config';
 import { ServerLogic } from './ts/ServerLogic';
-import { Guess } from 'wordle-shared/interfaces/Guess';
 import { DictionaryLogic } from './ts/DictionaryLogic';
+import type { Guess } from 'wordle-shared/interfaces/Guess';
 
 const app = express();
 app.use(express.json()); // Parse JSON bodies
