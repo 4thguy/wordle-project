@@ -1,0 +1,12 @@
+{
+  "name": "wordle-project",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "format": "pnpm --prefix wordle-client/ format &&  prettier --write wordle-server/**/*.ts && prettier --write wordle-shared/**/*.ts"
+  },
+  "devDependencies": {
+    "eslint": "^8.49.0",
+    "prettier": "^3.0.3"
+  }
+}
