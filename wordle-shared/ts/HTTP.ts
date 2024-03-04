@@ -1,5 +1,5 @@
-import { HttpMethod } from '@/enums/HttpMethod';
-import type { ApiRequestOptions } from '@/interfaces/HttpRequestOptions';
+import { HttpMethod } from '../enums/HttpMethod';
+import type { ApiRequestOptions } from '../interfaces/HttpRequestOptions';
 
 export class HTTP {
 	private static timesToRetry = 3;
@@ -65,7 +65,7 @@ export class HTTP {
 						// Retry the request
 						setTimeout(() => {
 							this.request(url, options, timesToRetry - 1)
-								.then((response) => {
+								.then((response: any) => {
 									resolve(response);
 								})
 								.catch((error) => {
@@ -80,10 +80,10 @@ export class HTTP {
 		});
 	}
 
-    /**
-     * Get a random delay for retrying the request
-     * @returns number between retryMinDelay and retryMaxDelay
-     */
+	/**
+	 * Get a random delay for retrying the request
+	 * @returns number between retryMinDelay and retryMaxDelay
+	 */
 	private static getRetryDelay(): number {
 		return Math.floor(
 			Math.random() * (this.retryMaxDelay - this.retryMinDelay) + this.retryMinDelay,

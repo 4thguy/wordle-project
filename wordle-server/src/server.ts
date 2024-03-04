@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { Config } from 'wordle-shared/Config';
+import { Config } from '../Config';
 import { ServerLogic } from './ts/ServerLogic';
 import { DictionaryLogic } from './ts/DictionaryLogic';
 import type { Guess } from 'wordle-shared/interfaces/Guess';
@@ -30,7 +30,7 @@ app.post(Config.Endpoints.GUESS, (req: Request, res: Response) => {
 	res.json(onGuessSubmitted(req.body));
 });
 
-const port = process.env.PORT || 3000;
+const port = Config.wordleServerPort;
 app.listen(port, () => {
-	console.log(`Server is running on port ${port}`);
+	console.log(`Wordle API Server is running on port ${port}`);
 });

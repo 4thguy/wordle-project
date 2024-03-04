@@ -1,4 +1,4 @@
-import type { HttpMethod } from '@/enums/HttpMethod';
+import type { HttpMethod } from '../enums/HttpMethod';
 
 export interface ApiRequestOptions {
 	method: HttpMethod;

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "pnpm --prefix wordle-client/ format &&  prettier --write wordle-server/**/*.ts && prettier --write wordle-shared/**/*.ts"
+    "format": "pnpm --prefix wordle-client/ format && prettier --write wordle-db/**/*.ts && prettier --write wordle-server/**/*.ts && prettier --write wordle-shared/**/*.ts"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.3.3",

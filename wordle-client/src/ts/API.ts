@@ -1,5 +1,5 @@
 import { Config } from 'wordle-shared/Config';
-import { HTTP } from './HTTP';
+import { HTTP } from 'wordle-shared/ts/HTTP';
 import type { Endpoints } from 'wordle-shared/Endpoints';
 import type { Guess } from 'wordle-shared/interfaces/Guess';
 

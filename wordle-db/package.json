@@ -1,0 +1,22 @@
+{
+  "name": "wordle-db",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "tsx ./src/database.ts",
+    "dev": "nodemon"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+		"@types/express": "^4.17.21",
+		"@types/node": "^20.11.19",
+		"express": "^4.18.2",
+    "nodemon": "^3.1.0",
+    "pg": "^8.11.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.7.1"
+  }
+}

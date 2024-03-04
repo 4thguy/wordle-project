@@ -1,20 +1,7 @@
-import seedrandom from 'seedrandom';
 import { TimingLogic } from './TimingLogic';
+import { HTTP } from 'wordle-shared/ts/HTTP';
 
 export class DictionaryLogic {
-	private static dictionary = new Set([
-		'BREAD',
-		'DREAM',
-		'FEAST',
-		'GRAPE',
-		'LEMON',
-		'MUSIC',
-		'OLIVE',
-		'PEACH',
-		'QUEEN',
-		'RIVER',
-	]);
-
 	// Cached word
 	private static cachedWord: string = '';
 	// Cached word ID
@@ -44,8 +31,15 @@ export class DictionaryLogic {
 	 * @param guess - The guess to check.
 	 * @returns True if the guess is in the dictionary.
 	 */
-	public static isGuessInDictionary(guess: string): boolean {
-		return DictionaryLogic.dictionary.has(guess.toUpperCase()); // Ensure case-insensitive comparison
+	public static async isGuessInDictionary(guess: string): Promise<boolean> {
+		return HTTP
+			.GET<any>(`http://localhost:4000/check/?word=${guess.toLocaleUpperCase()}`)
+			.then((result) => {
+				return true;
+			})
+			.catch((error) => {
+				return false;
+			});
 	}
 
 	/**
@@ -74,10 +68,10 @@ export class DictionaryLogic {
 	/**
 	 * Generates caches for today's word, word ID, and date.
 	 */
-	private static generateCaches(): void {
+	private static async generateCaches(): Promise<void> {
 		DictionaryLogic.generateDate();
 		DictionaryLogic.generateWordId();
-		DictionaryLogic.generateWord();
+		await DictionaryLogic.generateWord();
 		console.log('Cache set!');
 		console.log("Today's word id is " + DictionaryLogic.cachedWordId);
 		DictionaryLogic.timingLogic.setTimeouts(() => {
@@ -113,11 +107,13 @@ export class DictionaryLogic {
 	 *
 	 * @returns The word for today.
 	 */
-	private static generateWord(): string {
-		const rng = seedrandom(DictionaryLogic.getTodaysWordId().toString());
-		const i = Math.floor(rng() * DictionaryLogic.dictionary.size);
-		DictionaryLogic.cachedWord = Array.from(DictionaryLogic.dictionary)[i];
-		return DictionaryLogic.cachedWord;
+	private static generateWord(): Promise<string> {
+		return HTTP
+			.GET<any>(`http://localhost:4000/word/?wordId=${DictionaryLogic.cachedWordId}`)
+			.then((result) => {
+				DictionaryLogic.cachedWord = result.word;
+				return DictionaryLogic.cachedWord;
+			});
 	}
 
 	/**
