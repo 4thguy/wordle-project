@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import LoadingAnimation, { ElementMode } from './components/LoadingAnimation.vue';
-import WordItem from './components/WordItem.vue';
-import KeyBoard from './components/KeyBoard.vue';
+import LoadingAnimation, { ElementMode } from '@/components/LoadingAnimation.vue';
+import WordItem from '@/components/WordItem.vue';
+import KeyBoard from '@/components/KeyBoard.vue';
 </script>
 
 <template>
@@ -58,7 +58,7 @@ import KeyBoard from './components/KeyBoard.vue';
 </style>
 
 <script lang="ts">
-import { Config } from '@/Config';
+import { Config } from '@/config/Config';
 import { ClientLogic } from '@/ts/ClientLogic';
 import { Subscriptions } from '@/ts/Subscriptions';
 import { AppEvents } from '@/enums/AppEvents';

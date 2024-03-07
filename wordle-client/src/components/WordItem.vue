@@ -94,7 +94,7 @@
 </style>
 
 <script lang="ts">
-import { Config } from '@/Config';
+import { Config } from '@/config/Config';
 import { LetterResult } from 'wordle-shared/enums/LetterResult';
 
 export default {

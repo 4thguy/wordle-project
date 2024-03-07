@@ -37,7 +37,7 @@ export class TimingLogic {
 			endOfDay.setDate(endOfDay.getDate() + 1);
 			endOfDay.setUTCHours(0, 0, 0, 0);
 			timeUntilEndOfDay = endOfDay.getTime() - now.getTime();
-		} 
+		}
 
 		return timeUntilEndOfDay;
 	}

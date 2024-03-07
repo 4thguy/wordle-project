@@ -1,6 +1,6 @@
-import { Config as BaseConfig } from 'wordle-shared/Config';
+import { Config as BaseConfig } from 'wordle-shared/config/Config';
 import { Subscriptions } from '@/ts/Subscriptions';
-import { AppEvents } from './enums/AppEvents';
+import { AppEvents } from '@/enums/AppEvents';
 import { API } from '@/ts/API';
 import type { Event } from '@/interfaces/Event';
 

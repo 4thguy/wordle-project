@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { Config } from '../Config';
+import { Config } from './config/Config';
 import { ServerLogic } from './ts/ServerLogic';
 import { DictionaryLogic } from './ts/DictionaryLogic';
 import type { Guess } from 'wordle-shared/interfaces/Guess';

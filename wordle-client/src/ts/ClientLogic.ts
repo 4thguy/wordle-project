@@ -1,4 +1,4 @@
-import { Config } from '@/Config';
+import { Config } from '@/config/Config';
 import { Subscriptions } from './Subscriptions';
 import { API } from './API';
 import { LetterResult } from 'wordle-shared/enums/LetterResult';

@@ -1,8 +1,9 @@
 import express, { Request, Response } from 'express';
 import pg from 'pg';
-const { Pool } = pg;
-import { Config } from '../Config';
+import { Config } from './config/Config';
 import { Queries } from './ts/Queries';
+
+const { Pool } = pg;
 
 // Configure the PostgreSQL connection pool
 const pool = new Pool(Config.Postgres);
@@ -56,6 +57,10 @@ async function onWordRequested(id: string): Promise<string> {
 
 const app = express();
 app.use(express.json()); // Parse JSON bodies
+
+app.get(Config.Endpoints.ROOT, async (req: Request, res: Response) => {
+	res.json('Hello World');
+});
 
 app.get(Config.Endpoints.CHECK, async (req: Request, res: Response) => {
 	const word = req.query.word?.toString() ?? '';

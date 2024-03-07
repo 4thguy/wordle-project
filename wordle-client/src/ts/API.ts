@@ -1,6 +1,6 @@
-import { Config } from 'wordle-shared/Config';
+import { Config } from 'wordle-shared/config/Config';
 import { HTTP } from 'wordle-shared/ts/HTTP';
-import type { Endpoints } from 'wordle-shared/Endpoints';
+import type { Endpoints } from 'wordle-shared/config/Endpoints';
 import type { Guess } from 'wordle-shared/interfaces/Guess';
 
 export class API {
@@ -10,7 +10,7 @@ export class API {
 	 * @returns URL
 	 */
 	private static buildUrl(endpoint: Endpoints) {
-		return Config.ApiBaseUrl + endpoint;
+		return Config.wordleIpAddress + ':' + Config.wordleServerPort + endpoint;
 	}
 
 	/**
