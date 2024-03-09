@@ -1,3 +1,5 @@
+import { Subscriptions } from './Subscriptions';
+import { AppEvents } from '@/enums/AppEvents';
 import type { Stats } from '@/interfaces/Stats';
 
 export class StatsLogic {
@@ -8,7 +10,7 @@ export class StatsLogic {
 	 * Get the current stats object from local storage.
 	 * @returns the current stats object.
 	 */
-	private static GetStatsObject(): Stats {
+	public static GetStatsObject(): Stats {
 		const encoded = localStorage.getItem(StatsLogic.statProperty);
 		const local = atob(encoded ?? '');
 		let stats: Stats = {
@@ -37,6 +39,11 @@ export class StatsLogic {
 		const local = JSON.stringify(stats);
 		const encoded = btoa(local);
 		localStorage.setItem(StatsLogic.statProperty, encoded);
+		const subscriptions = Subscriptions.getSingleton();
+		subscriptions.onEvent({
+			data: stats,
+			name: AppEvents.StatsUpdated,
+		});
 	}
 
 	/*

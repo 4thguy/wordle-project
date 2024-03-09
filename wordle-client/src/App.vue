@@ -2,6 +2,7 @@
 import LoadingAnimation, { ElementMode } from '@/components/LoadingAnimation.vue';
 import WordItem from '@/components/WordItem.vue';
 import KeyBoard from '@/components/KeyBoard.vue';
+import StatisticsPopup from '@/components/StatisticsPopup.vue';
 </script>
 
 <template>
