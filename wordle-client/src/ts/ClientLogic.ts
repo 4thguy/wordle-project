@@ -1,10 +1,10 @@
 import { Config } from '@/config/Config';
 import { Subscriptions } from './Subscriptions';
 import { API } from './API';
+import { StatsLogic } from './StatsLogic';
 import { LetterResult } from 'wordle-shared/enums/LetterResult';
 import { ValidationResult } from 'wordle-shared/enums/ValidationResult';
 import { GameEvents } from '@/enums/GameEvents';
-import { AppEvents } from '@/enums/AppEvents';
 import type { Letter } from 'wordle-shared/interfaces/Letter';
 import type { Word } from 'wordle-shared/interfaces/Word';
 import type { Guess } from 'wordle-shared/interfaces/Guess';
@@ -13,15 +13,12 @@ import type { Event } from '@/interfaces/Event';
 export class ClientLogic {
 	private selectedLetters: Word = [];
 
-	private guesses = 0;
+	private guessesSubmitted: number = 0;
 
-	constructor() {
-		const subscriptions = Subscriptions.getSingleton();
-		subscriptions.subscribeToEvent(AppEvents.ConfigUpdated, this.onConfigUpdated.bind(this));
-	}
-
-	private onConfigUpdated(event: Event): void {}
-
+	/**
+	 * Validate the word and submit the guess to the server.
+	 * @param word the word to validate.
+	 */
 	public validateGuess(word: Word): void {
 		const subscriptions = Subscriptions.getSingleton();
 		if (word.length === Config.WordLength) {
@@ -31,30 +28,40 @@ export class ClientLogic {
 			});
 			API.submitGuess(guess, Config.WordId).then((responseData: Guess) => {
 				switch (responseData.validationResult) {
+					// If the word is in the dictionary, check if the word is correct.
 					case ValidationResult.IN_DICTIONARY: {
 						let guessCorrect = true;
-						if (responseData.word) {
-							(responseData.word || []).forEach((letter: Letter) => {
-								if (letter.status !== LetterResult.CORRECT_POSITION) {
-									guessCorrect = false;
-									return;
-								}
-							});
-						}
+						// Check the correctness of the word
+						(responseData.word ?? []).forEach((letter: Letter) => {
+							if (letter.status !== LetterResult.CORRECT_POSITION) {
+								guessCorrect = false;
+								return;
+							}
+						});
+						// Notify the user if the word is correct or incorrect.
 						subscriptions.onEvent({
 							data: responseData.word,
 							name: guessCorrect ? GameEvents.GuessCorrect : GameEvents.GuessIncorrect,
 						});
+						this.guessesSubmitted++;
+						StatsLogic.UpdateDailyStats();
+						if (guessCorrect) {
+							StatsLogic.UpdateWinStats(this.guessesSubmitted);
+						}
 						break;
 					}
+					// If the word is not in the dictionary, notify the user.
 					case ValidationResult.NOT_IN_DICTIONARY: {
+						this.guessesSubmitted = 0;
 						subscriptions.onEvent({
 							name: GameEvents.GuessNotInDictionary,
 							data: [],
 						});
 						break;
 					}
+					// If the word is expired, notify the user.
 					case ValidationResult.EXPIRED: {
+						this.guessesSubmitted = 0;
 						subscriptions.onEvent({
 							name: GameEvents.GameExpired,
 							data: [],
