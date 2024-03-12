@@ -1,6 +1,6 @@
 # Wordle Client
 
-This is the wordle client, developed using VueJS 3. It is still under development with planned features, but right now the game is playable, albeit with a very limited dictionary.
+This is the wordle client, developed using VueJS 3. It is still under development with planned features, but right now the game is playable.
 
 ## Installation
 
@@ -13,6 +13,8 @@ This is the wordle client, developed using VueJS 3. It is still under developmen
 2. Run `pnpm dev`
 
 This will compile the project and serve it locally. You can now access the Wordle Client in your browser at http://localhost:5173/ by default.
+
+Any changes made to the project files will cause the client to reload with the new changes.
 
 ## Stack
 This project uses VueJS for the actual app, using SASS to facilitate CSS development.

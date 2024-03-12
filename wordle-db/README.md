@@ -1,5 +1,5 @@
-# Wordle Shared
-This is a separate TypeScript project that shares common data types and functions between Wordle Server and Wordle Client. Its purpose is to ensure that the common data types and functions are always in sync.
+# Wordle DB
+This is a separate TypeScript project that is meant to offload the responsibility of communicating with the database from the server directly.
 
 ## Installation
 
