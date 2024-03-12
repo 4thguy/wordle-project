@@ -17,7 +17,7 @@ async function onWordCheckRequested(word: string): Promise<boolean> {
 	const client = await pool.connect();
 	try {
 		const result = await client.query(Queries.checkWord(word));
-		return (result.length === 1 && result[1].rowCount === 1);
+		return result.rowCount === 1;
 	} catch (error) {
 		console.error('Error executing query:', error);
 	} finally {
