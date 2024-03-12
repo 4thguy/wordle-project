@@ -29,6 +29,9 @@ dependencies:
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
+  wordle-data:
+    specifier: link:../wordle-data
+    version: link:../wordle-data
   wordle-shared:
     specifier: link:../wordle-shared
     version: link:../wordle-shared

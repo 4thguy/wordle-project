@@ -1,5 +1,5 @@
 import { TimingLogic } from './TimingLogic';
-import { HTTP } from 'wordle-shared/ts/HTTP';
+import { Database } from 'wordle-data/src/data';
 
 export class DictionaryLogic {
 	// Cached word
@@ -32,7 +32,7 @@ export class DictionaryLogic {
 	 * @returns True if the guess is in the dictionary.
 	 */
 	public static async isGuessInDictionary(guess: string): Promise<boolean> {
-		return HTTP.GET<any>(`http://localhost:4000/check/?word=${guess.toLocaleUpperCase()}`)
+		return Database.checkWord(guess.toLocaleUpperCase())
 			.then((result) => {
 				return true;
 			})
@@ -107,12 +107,16 @@ export class DictionaryLogic {
 	 * @returns The word for today.
 	 */
 	private static generateWord(): Promise<string> {
-		return HTTP.GET<any>(`http://localhost:4000/word/?wordId=${DictionaryLogic.cachedWordId}`).then(
-			(result) => {
-				DictionaryLogic.cachedWord = result.word;
-				return DictionaryLogic.cachedWord;
-			},
-		);
+		return Database.getWord(DictionaryLogic.cachedWordId.toString())
+			.then(
+				(result) => {
+					DictionaryLogic.cachedWord = result.word;
+					return DictionaryLogic.cachedWord;
+				},
+			)
+			.catch((error) => {
+				return '';
+			});
 	}
 
 	/**

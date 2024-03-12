@@ -1,5 +1,0 @@
-{
-	"watch": ["src/"],
-	"exec": "pnpm run serve",
-	"ext": "ts"
-}

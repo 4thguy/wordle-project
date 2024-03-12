@@ -1,4 +1,3 @@
-import express, { Request, Response } from 'express';
 import pg from 'pg';
 import { Config } from './config/Config';
 import { Queries } from './ts/Queries';
@@ -55,28 +54,26 @@ async function onWordRequested(id: string): Promise<string> {
 	return '';
 }
 
-const app = express();
-app.use(express.json()); // Parse JSON bodies
+export class Database {
+	/**
+	 * Determines whether a guess is in the game dictionary.
+	 * @param word 
+	 * @returns True if the word is in the dictionary.
+	 */
+	public static async checkWord(word: string = ''): Promise<{ word: boolean }> {
+		return {
+			word: await onWordCheckRequested(word),
+		};
+	}
 
-app.get(Config.Endpoints.ROOT, async (req: Request, res: Response) => {
-	res.json('Hello World');
-});
-
-app.get(Config.Endpoints.CHECK, async (req: Request, res: Response) => {
-	const word = req.query.word?.toString() ?? '';
-	res.json({
-		word: await onWordCheckRequested(word),
-	});
-});
-
-app.get(Config.Endpoints.WORD, async (req: Request, res: Response) => {
-	const wordId = req.query.wordId?.toString() ?? '-1';
-	res.json({
-		word: await onWordRequested(wordId),
-	});
-});
-
-const port = Config.dbServerPort;
-app.listen(port, () => {
-	console.log(`Database API Server is running on port ${port}`);
-});
+	/**
+	 * Get the word that corresponds to this ID.
+	 * @param wordId 
+	 * @returns  The word for the ID.
+	 */
+	public static async getWord(wordId: string = '-1'): Promise<{ word: string }> {
+		return {
+			word: await onWordRequested(wordId),
+		};
+	}
+}
