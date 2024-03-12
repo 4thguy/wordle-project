@@ -51,6 +51,7 @@
 	flex-direction: row;
 	justify-content: center;
 	flex-wrap: wrap;
+	align-content: center;
 
 	&--alphabetical {
 		$alphabetical: a b c d e f g h i j line-break-1 k l m n o p q r s line-break-2 enter t u v w x y
