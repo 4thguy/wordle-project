@@ -34,7 +34,7 @@ export class DictionaryLogic {
 	public static async isGuessInDictionary(guess: string): Promise<boolean> {
 		return Database.checkWord(guess.toLocaleUpperCase())
 			.then((result) => {
-				return true;
+				return result.word ?? false;
 			})
 			.catch((error) => {
 				return false;
@@ -108,12 +108,10 @@ export class DictionaryLogic {
 	 */
 	private static generateWord(): Promise<string> {
 		return Database.getWord(DictionaryLogic.cachedWordId.toString())
-			.then(
-				(result) => {
-					DictionaryLogic.cachedWord = result.word;
-					return DictionaryLogic.cachedWord;
-				},
-			)
+			.then((result) => {
+				DictionaryLogic.cachedWord = result.word;
+				return DictionaryLogic.cachedWord;
+			})
 			.catch((error) => {
 				return '';
 			});

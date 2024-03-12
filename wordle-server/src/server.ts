@@ -15,7 +15,7 @@ function onConfigRequested(): Config {
 	};
 }
 
-function onGuessSubmitted(data: any): Guess {
+async function onGuessSubmitted(data: any): Promise<Guess> {
 	return ServerLogic.validateGuess(data.guess, data.wordId);
 }
 
@@ -27,7 +27,9 @@ app.get(Config.Endpoints.CONFIG, (req: Request, res: Response) => {
 });
 
 app.post(Config.Endpoints.GUESS, (req: Request, res: Response) => {
-	res.json(onGuessSubmitted(req.body));
+	onGuessSubmitted(req.body).then((result) => {
+		res.json(result);
+	});
 });
 
 const port = Config.wordleServerPort;

@@ -1,3 +1,4 @@
+import { Config } from '../config/Config';
 import { DictionaryLogic } from './DictionaryLogic';
 import { LetterResult } from 'wordle-shared/enums/LetterResult';
 import { ValidationResult } from 'wordle-shared/enums/ValidationResult';
@@ -6,6 +7,11 @@ import type { Letter } from 'wordle-shared/interfaces/Letter';
 import type { Guess } from 'wordle-shared/interfaces/Guess';
 
 export class ServerLogic {
+	/**
+	 * Grades a guess.
+	 * @param guess
+	 * @returns The graded word.
+	 */
 	private static gradeGuess(guess: string): Word {
 		const currentWord = DictionaryLogic.getTodaysWord();
 
@@ -28,22 +34,36 @@ export class ServerLogic {
 		return word;
 	}
 
-	public static validateGuess(guess: string, wordId: number): Guess {
-		if (!DictionaryLogic.isWordIdValid(wordId)) {
-			return {
-				validationResult: ValidationResult.EXPIRED,
-			};
-		}
-
-		if (!DictionaryLogic.isGuessInDictionary(guess)) {
-			return {
-				validationResult: ValidationResult.NOT_IN_DICTIONARY,
-			};
-		}
-
-		return {
-			validationResult: ValidationResult.IN_DICTIONARY,
-			word: this.gradeGuess(guess),
-		};
+	/**
+	 * Validates a guess.
+	 * @param guess
+	 * @param wordId
+	 * @returns A promise that resolves to the result of the guess validation.
+	 */
+	public static validateGuess(guess: string, wordId: number): Promise<Guess> {
+		return new Promise<Guess>((resolve) => {
+			if (!DictionaryLogic.isWordIdValid(wordId)) {
+				resolve({
+					validationResult: ValidationResult.EXPIRED,
+				});
+			}
+			if (guess.length !== Config.WordLength) {
+				resolve({
+					validationResult: ValidationResult.NOT_IN_DICTIONARY,
+				});
+			}
+			DictionaryLogic.isGuessInDictionary(guess).then((isInDictionary) => {
+				if (!isInDictionary) {
+					resolve({
+						validationResult: ValidationResult.NOT_IN_DICTIONARY,
+					});
+				} else {
+					resolve({
+						validationResult: ValidationResult.IN_DICTIONARY,
+						word: this.gradeGuess(guess),
+					});
+				}
+			});
+		});
 	}
 }
