@@ -30,6 +30,7 @@ export class ClientLogic {
 				switch (responseData.validationResult) {
 					// If the word is in the dictionary, check if the word is correct.
 					case ValidationResult.IN_DICTIONARY: {
+						this.guessesSubmitted++;
 						let guessCorrect = true;
 						// Check the correctness of the word
 						(responseData.word ?? []).forEach((letter: Letter) => {
@@ -38,12 +39,16 @@ export class ClientLogic {
 								return;
 							}
 						});
+						const gameOver = this.guessesSubmitted >= Config.MaxTries;
 						// Notify the user if the word is correct or incorrect.
 						subscriptions.onEvent({
 							data: responseData.word,
-							name: guessCorrect ? GameEvents.GuessCorrect : GameEvents.GuessIncorrect,
+							name: guessCorrect
+								? GameEvents.GuessCorrect
+								: gameOver
+									? GameEvents.GameOver
+									: GameEvents.GuessIncorrect,
 						});
-						this.guessesSubmitted++;
 						StatsLogic.UpdateDailyStats();
 						if (guessCorrect) {
 							StatsLogic.UpdateWinStats(this.guessesSubmitted);
@@ -52,7 +57,6 @@ export class ClientLogic {
 					}
 					// If the word is not in the dictionary, notify the user.
 					case ValidationResult.NOT_IN_DICTIONARY: {
-						this.guessesSubmitted = 0;
 						subscriptions.onEvent({
 							name: GameEvents.GuessNotInDictionary,
 							data: [],
@@ -61,7 +65,6 @@ export class ClientLogic {
 					}
 					// If the word is expired, notify the user.
 					case ValidationResult.EXPIRED: {
-						this.guessesSubmitted = 0;
 						subscriptions.onEvent({
 							name: GameEvents.GameExpired,
 							data: [],

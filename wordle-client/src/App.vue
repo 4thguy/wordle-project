@@ -79,6 +79,7 @@ export default {
 			tmpWord: [] as Word,
 			ready: false,
 			configLoaded: false,
+			canMakeGuesses: false,
 		};
 	},
 	mounted: function () {
@@ -102,6 +103,7 @@ export default {
 		},
 		onLoadingAnimationDismissed(event: Event): void {
 			this.ready = true;
+			this.canMakeGuesses = true;
 		},
 		onConfigUpdated(event: Event): void {
 			this.wordLength = Config.WordLength;
@@ -114,6 +116,7 @@ export default {
 		},
 		onGuessSubmitted(event: Event): void {},
 		onGuessCorrect(event: Event): void {
+			this.canMakeGuesses = false;
 			this.jiggleWordlist(event.data);
 			alert('Congratulations, you guessed the word!');
 		},
@@ -125,10 +128,12 @@ export default {
 			alert('Sorry, word is not in dictionary');
 		},
 		onGameExpired(event: Event): void {
+			this.canMakeGuesses = false;
 			this.jiggleWordlist(event.data);
 			alert('Sorry, time is up to guess this word');
 		},
 		onGameOver(event: Event): void {
+			this.canMakeGuesses = false;
 			this.jiggleWordlist(event.data);
 			alert('Sorry, better luck next time!');
 		},
@@ -144,8 +149,10 @@ export default {
 					letter.status = guessedWord[i].status;
 				});
 			}
-			this.tmpWord = [];
-			this.wordList.push(this.tmpWord);
+			if (this.canMakeGuesses) {
+				this.tmpWord = [];
+				this.wordList.push(this.tmpWord);
+			}
 		},
 	},
 };
