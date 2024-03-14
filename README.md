@@ -17,7 +17,7 @@ If any of these terms are unfamiliar to you, it is recommended that you familiar
 
 ## Components
 
-   * *wordle-client*: This component encompasses the client interface, developed using Vue.js.
+   * *wordle-web*: This component encompasses the client interface, developed using Vue.js.
    * *wordle-shared*: Here, you'll find shared functions and classes written in TypeScript, aiding in the seamless interaction between different project components.
    * *wordle-server*: This segment hosts the Node.js server, also written in TypeScript, responsible for handling server-side operations and interactions.
    * *wordle-db*: Here, you'll find functions written in TypeScript to connect to the database backend, to avoid having the code that takes care of contacting the database inside the server itself.
@@ -30,7 +30,7 @@ To get started with the Wordle Project, follow these steps:
 1. Clone the repository to your local machine: `git clone git@github.com:4thguy/wordle-project.git`
 2. Navigate to the project directory: `cd wordle-project`
 3. Explore the project components in their respective folders:
- * wordle-client
+ * wordle-web
  * wordle-shared
  * wordle-server
  * wordle-data
@@ -40,7 +40,7 @@ To get started with the Wordle Project, follow these steps:
 
 For detailed instructions on developing and running each component, please refer to the respective folders.
 
-    wordle-client/README.md: Instructions for setting up and running the client.
+    wordle-web/README.md: Instructions for setting up and running the client.
     wordle-shared/README.md: Guidelines for utilizing shared functions and classes.
     wordle-server/README.md: Instructions for deploying and managing the server.
     wordle-data/README.md: Instructions for communicating with the database.
