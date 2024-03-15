@@ -22,8 +22,8 @@ export class ServerLogic {
 				guessLetter === targetLetter
 					? LetterResult.CORRECT_POSITION
 					: currentWord.indexOf(guessLetter) > -1
-						? LetterResult.CORRECT_LETTER
-						: LetterResult.INCORRECT_LETTER;
+					? LetterResult.CORRECT_LETTER
+					: LetterResult.INCORRECT_LETTER;
 			const letter: Letter = {
 				data: guessLetter,
 				status: guessLetterStatus,
