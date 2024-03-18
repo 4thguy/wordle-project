@@ -1,6 +1,6 @@
 {
 	"name": "wordle-native",
-	"main": "app/app.ts",
+	"main": "src/main.ts",
 	"version": "0.0.0",
 	"private": true,
 	"dependencies": {

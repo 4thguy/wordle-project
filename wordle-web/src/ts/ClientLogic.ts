@@ -46,8 +46,8 @@ export class ClientLogic {
 							name: guessCorrect
 								? GameEvents.GuessCorrect
 								: gameOver
-								? GameEvents.GameOver
-								: GameEvents.GuessIncorrect,
+									? GameEvents.GameOver
+									: GameEvents.GuessIncorrect,
 						});
 						StatsLogic.UpdateDailyStats();
 						if (guessCorrect) {
