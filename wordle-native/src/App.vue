@@ -1,43 +1,49 @@
 <template>
-  <Page>
-    <ActionBar>
-      <Label text="Home"/>
-    </ActionBar>
+	<Page>
+		<ActionBar>
+			<Label text="Home" />
+		</ActionBar>
 
-    <GridLayout>
-      <Label class="info">
-        <FormattedString>
-          <Span class="fas" text.decode="&#xf135; "/>
-          <Span :text="message"/>
-        </FormattedString>
-      </Label>
-    </GridLayout>
-  </Page>
+		<GridLayout>
+			<Label class="info">
+				<FormattedString>
+					<Span class="fas" text.decode="&#xf135; " />
+					<Span :text="message" />
+				</FormattedString>
+			</Label>
+
+			<Keyboard />
+		</GridLayout>
+	</Page>
 </template>
 
 <script lang="ts">
-  import Vue from "nativescript-vue";
+import Vue from 'nativescript-vue';
+import Keyboard from './components/Keyboard.vue';
 
-  export default Vue.extend({
-    computed: {
-      message() {
-        return "Wordle Native Test";
-      }
-    }
-  });
+export default Vue.extend({
+	components: {
+		Keyboard,
+	},
+	computed: {
+		message() {
+			return 'Wordle Native Test';
+		},
+	},
+});
 </script>
 
 <style scoped lang="scss">
-  @import '@nativescript/theme/scss/variables/blue';
+@import '@nativescript/theme/scss/variables/blue';
 
-  // Custom styles
-  .fas {
-    @include colorize($color: accent);
-  }
+// Custom styles
+.fas {
+	@include colorize($color: accent);
+}
 
-  .info {
-    font-size: 20;
-    horizontal-align: center;
-    vertical-align: center;
-  }
+.info {
+	font-size: 20;
+	horizontal-align: center;
+	vertical-align: center;
+}
 </style>
