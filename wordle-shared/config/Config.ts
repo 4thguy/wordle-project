@@ -4,8 +4,7 @@ let location = '';
 
 try {
 	location = '//' + window.location.hostname;
-}
-catch {
+} catch {
 	location = '//localhost';
 }
 

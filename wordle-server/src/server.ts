@@ -37,9 +37,9 @@ app.post(Config.Endpoints.GUESS, (req: Request, res: Response) => {
 app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');
 	next();
-  });  
+});
 
 const port = Config.wordleServerPort;
-app.listen(port,'0.0.0.0', () => {
+app.listen(port, '0.0.0.0', () => {
 	console.log(`Wordle API Server is running on port ${port}`);
 });

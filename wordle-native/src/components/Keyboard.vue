@@ -1,20 +1,34 @@
 <template>
 	<FlexboxLayout
+		ref="keyboard"
+		@layoutChanged="onLayoutChange"
 		flexDirection="row"
 		justifyContent="center"
 		flexWrap="wrap"
 		alignItems="center"
 		class="buttons buttons--qwerty"
-		@click="onPressButton"
 	>
 		<Button
 			v-for="l in letters"
+			ref="squareButton"
+			:key="l"
 			:class="['button', `button--${l}`, getLetterStatusClass(l)]"
 			:order="getButtonOrder(l)"
 			:text="l"
+			@tap="onPressButton(l)"
 		/>
-		<Button class="button button--enter" :order="getButtonOrder('ENTER')" text="ENTER" />
-		<Button class="button button--backspace" :order="getButtonOrder('DEL')" text="DEL" />
+		<Button
+			class="button button--enter"
+			:order="getButtonOrder('ENTER')"
+			text="ENTER"
+			@tap="onPressButton('ENTER')"
+		/>
+		<Button
+			class="button button--backspace"
+			:order="getButtonOrder('DEL')"
+			text="DEL"
+			@tap="onPressButton('DEL')"
+		/>
 		<Label
 			class="button button--line-break button--line-break-1"
 			:order="getButtonOrder('LINE-BREAK-1')"
@@ -23,7 +37,7 @@
 		/>
 		<Label
 			class="button button--line-break button--line-break-2"
-			:order="getButtonOrder('LINE-BREAK-1')"
+			:order="getButtonOrder('LINE-BREAK-2')"
 			width="100%"
 			text=""
 		/>
@@ -31,93 +45,57 @@
 </template>
 
 <script lang="ts">
-const letters = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i).toLowerCase());
-const alphabetical = [
-	'a',
-	'b',
-	'c',
-	'd',
-	'e',
-	'f',
-	'g',
-	'h',
-	'i',
-	'j',
-	'line-break-1',
-	'k',
-	'l',
-	'm',
-	'n',
-	'o',
-	'p',
-	'q',
-	'r',
-	's',
-	'line-break-2',
-	'enter',
-	't',
-	'u',
-	'v',
-	'w',
-	'x',
-	'y',
-	'z',
-	'del',
-];
-const qwerty = [
-	'q',
-	'w',
-	'e',
-	'r',
-	't',
-	'y',
-	'u',
-	'i',
-	'o',
-	'p',
-	'line-break-1',
-	'a',
-	's',
-	'd',
-	'f',
-	'g',
-	'h',
-	'j',
-	'k',
-	'l',
-	'line-break-2',
-	'enter',
-	'z',
-	'x',
-	'c',
-	'v',
-	'b',
-	'n',
-	'm',
-	'del',
-];
+import { Application } from '@nativescript/core';
+import { KeyboardLayouts } from '~/data/KeyboardLayouts';
 
 export default {
 	name: 'Keyboard',
 	data() {
 		return {
-			letters: letters,
+			letters: KeyboardLayouts.LETTERS,
 		};
 	},
 	methods: {
-		onPressButton(): void {},
+		onPressButton(l: string): void {
+			console.log(l);
+		},
 		getButtonOrder(s: string): number {
-			return qwerty.indexOf(s.toLocaleLowerCase()) ?? -1;
+			return KeyboardLayouts.QWERTY.indexOf(s.toLocaleLowerCase()) ?? -1;
 		},
 		getLetterStatusClass(s: string): string {
 			return s;
 		},
+		makeButtonsSquare() {
+			this.$nextTick(() => {
+				try {
+					this.$refs.squareButton.forEach((button) => {
+						button.nativeView.width = `${button.nativeView.getMeasuredHeight()}px`;
+					});
+				} catch (error) {
+					console.log('error');
+				}
+				console.log('updated');
+			});
+		},
+		onLayoutChange() {},
+	},
+	mounted() {
+		this.makeButtonsSquare();
+		Application.on(Application.orientationChangedEvent, this.onLayoutChange);
+	},
+	beforeDestroy() {
+		Application.off(Application.orientationChangedEvent, this.onLayoutChange);
 	},
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .button {
 	text-transform: uppercase;
+	background: red;
+	margin: 0;
+	&--line-break {
+		height: 0;
+	}
 }
 </style>
