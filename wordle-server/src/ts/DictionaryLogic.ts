@@ -73,6 +73,7 @@ export class DictionaryLogic {
 		await DictionaryLogic.generateWord();
 		console.log('Cache set!');
 		console.log("Today's word id is " + DictionaryLogic.cachedWordId);
+		console.log("Today's word is " + DictionaryLogic.cachedWord);
 		DictionaryLogic.timingLogic.setTimeouts(() => {
 			DictionaryLogic.clearCache();
 			DictionaryLogic.generateCaches();
