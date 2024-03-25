@@ -74,7 +74,6 @@ export default {
 				} catch (error) {
 					console.log('error');
 				}
-				console.log('updated');
 			});
 		},
 		onLayoutChange() {},

@@ -1,16 +1,16 @@
 <template>
 	<Page>
-		<Keyboard />
+		<key-board />
 	</Page>
 </template>
 
 <script lang="ts">
 import Vue from 'nativescript-vue';
-import Keyboard from './components/Keyboard.vue';
+import KeyBoard from './components/KeyBoard.vue';
 
 export default Vue.extend({
 	components: {
-		Keyboard,
+		KeyBoard,
 	},
 	computed: {
 		message() {
