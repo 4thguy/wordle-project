@@ -6,38 +6,31 @@
 		justifyContent="center"
 		flexWrap="wrap"
 		alignItems="center"
-		class="buttons buttons--qwerty"
+		class="buttons buttons"
 	>
 		<Button
 			v-for="l in letters"
 			ref="squareButton"
-			:key="l"
-			:class="['button', `button--${l}`, getLetterStatusClass(l)]"
-			:order="getButtonOrder(l)"
-			:text="l"
-			@tap="onPressButton(l)"
+			:key="l[0]"
+			:class="['button', `button--${l[0]}`, `button--${getLetterStatusClass(l[1])}`]"
+			:order="getButtonOrder(l[0])"
+			:text="l[0]"
+			@tap="onPressButton(l[0])"
 		/>
 		<Button
-			class="button button--enter"
-			:order="getButtonOrder('ENTER')"
-			text="ENTER"
-			@tap="onPressButton('ENTER')"
-		/>
-		<Button
-			class="button button--backspace"
-			:order="getButtonOrder('DEL')"
-			text="DEL"
-			@tap="onPressButton('DEL')"
+			v-for="b in buttons"
+			ref="squareButton"
+			:key="b"
+			:class="['button', `button--${b}`]"
+			:order="getButtonOrder(b)"
+			:text="b"
+			@tap="onPressButton(b)"
 		/>
 		<Label
-			class="button button--line-break button--line-break-1"
-			:order="getButtonOrder('LINE-BREAK-1')"
-			width="100%"
-			text=""
-		/>
-		<Label
-			class="button button--line-break button--line-break-2"
-			:order="getButtonOrder('LINE-BREAK-2')"
+			v-for="i in 2"
+			:key="i"
+			:class="['button', 'button--line-break', `button--line-break-${i}`]"
+			:order="getButtonOrder(`line-break-${i}`)"
 			width="100%"
 			text=""
 		/>
@@ -46,25 +39,11 @@
 
 <script lang="ts">
 import { Application } from '@nativescript/core';
-import { KeyboardLayouts } from '~/data/KeyboardLayouts';
+import KeyBoard from 'wordle-shared/components/KeyBoard';
 
 export default {
-	name: 'Keyboard',
-	data() {
-		return {
-			letters: KeyboardLayouts.LETTERS,
-		};
-	},
+	mixins: [KeyBoard],
 	methods: {
-		onPressButton(l: string): void {
-			console.log(l);
-		},
-		getButtonOrder(s: string): number {
-			return KeyboardLayouts.QWERTY.indexOf(s.toLocaleLowerCase()) ?? -1;
-		},
-		getLetterStatusClass(s: string): string {
-			return s;
-		},
 		makeButtonsSquare() {
 			this.$nextTick(() => {
 				try {

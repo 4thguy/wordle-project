@@ -1,4 +1,4 @@
-import type { Event } from '@/interfaces/Event';
+import type { Event } from '../interfaces/Event';
 
 export class Subscriptions {
 	private events: Map<any, Set<Function>> = new Map();

@@ -1,4 +1,4 @@
-import { Subscriptions } from './Subscriptions';
+import { Subscriptions } from '../../../wordle-shared/ts/Subscriptions';
 import { AppEvents } from '@/enums/AppEvents';
 import type { Stats } from '@/interfaces/Stats';
 

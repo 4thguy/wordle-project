@@ -1,8 +1,8 @@
 import { Config as BaseConfig } from 'wordle-shared/config/Config';
-import { Subscriptions } from '@/ts/Subscriptions';
+import { Subscriptions } from 'wordle-shared/ts/Subscriptions';
 import { AppEvents } from '@/enums/AppEvents';
 import { API } from '@/ts/API';
-import type { Event } from '@/interfaces/Event';
+import type { Event } from 'wordle-shared/interfaces/Event';
 
 export class Config extends BaseConfig {
 	public static Ready: boolean;

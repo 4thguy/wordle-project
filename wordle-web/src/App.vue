@@ -61,12 +61,12 @@ import StatisticsPopup from '@/components/StatisticsPopup.vue';
 <script lang="ts">
 import { Config } from '@/config/Config';
 import { ClientLogic } from '@/ts/ClientLogic';
-import { Subscriptions } from '@/ts/Subscriptions';
+import { Subscriptions } from 'wordle-shared/ts/Subscriptions';
 import { AppEvents } from '@/enums/AppEvents';
-import { GameEvents } from '@/enums/GameEvents';
+import { GameEvents } from 'wordle-shared/enums/GameEvents';
 import type { Word } from 'wordle-shared/interfaces/Word';
 import type { Letter } from 'wordle-shared/interfaces/Letter';
-import type { Event } from '@/interfaces/Event';
+import type { Event } from 'wordle-shared/interfaces/Event';
 
 const clientLogic = new ClientLogic();
 
@@ -157,3 +157,4 @@ export default {
 	},
 };
 </script>
+../../wordle-shared/enums/GameEvents

@@ -14,6 +14,7 @@ export class Config {
 	public static wordleIpAddress = location;
 	public static wordleServerPort = 3000;
 	public static WordId = -1;
+	public static ApiBaseUrl = '';
 	public static Endpoints = {
 		...Endpoints,
 	};

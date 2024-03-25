@@ -1,5 +1,7 @@
 export class KeyboardLayouts {
 	static LETTERS = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i).toLowerCase());
+	static BUTTONS = ['enter', 'del'];
+
 	static ALPHABETICAL = [
 		'a',
 		'b',
