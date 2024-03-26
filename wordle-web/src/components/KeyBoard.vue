@@ -87,22 +87,9 @@
 </style>
 
 <script lang="ts">
-import { ref, onMounted } from 'vue';
 import KeyBoard from 'wordle-shared/components/KeyBoard';
 
 export default {
-	setup() {
-		const data = KeyBoard.data();
-		const methods = KeyBoard.methods;
-
-		onMounted(() => {
-			// use the methods and data...
-		});
-
-		return {
-			...data,
-			...methods,
-		};
-	},
+	mixins: [KeyBoard],
 };
 </script>

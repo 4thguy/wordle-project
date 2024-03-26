@@ -6,7 +6,7 @@ import type { Word } from '../interfaces/Word';
 import type { Letter } from '../interfaces/Letter';
 import type { Event } from '../interfaces/Event';
 
-interface KeyBoard {
+interface KeyBoardInterface {
 	letters: Map<string, LetterResult>;
 	buttons: string[];
 	onGuessSubmitted(event: Event): void;
@@ -31,7 +31,7 @@ export default {
 			buttons: KeyboardLayouts.BUTTONS,
 		};
 	},
-	mounted(this: KeyBoard) {
+	mounted(this: KeyBoardInterface) {
 		const subscriptions = Subscriptions.getSingleton();
 		subscriptions.subscribeToEvent(GameEvents.GuessSubmitted, this.onGuessSubmitted.bind(this));
 		subscriptions.subscribeToEvent(GameEvents.GuessCorrect, this.onGuessCorrect.bind(this));
@@ -39,23 +39,23 @@ export default {
 		subscriptions.subscribeToEvent(GameEvents.GameOver, this.onGameOver.bind(this));
 	},
 	methods: {
-		processGuess(this: KeyBoard, word: Word): void {
+		processGuess(this: KeyBoardInterface, word: Word): void {
 			word.forEach((letter: Letter) => {
 				this.letters.set(letter.data, letter.status);
 			});
 		},
-		onPressButton(this: KeyBoard, l: string): void {
+		onPressButton(this: KeyBoardInterface, l: string): void {
 			const event = {
 				data: l,
 			} as Event;
 			this.$emit('button-clicked', event);
 		},
 		onGuessSubmitted(event: Event): void {},
-		onGuessCorrect(this: KeyBoard, event: Event): void {
+		onGuessCorrect(this: KeyBoardInterface, event: Event): void {
 			const word = event.data as Word;
 			this.processGuess(word);
 		},
-		onGuessIncorrect(this: KeyBoard, event: Event): void {
+		onGuessIncorrect(this: KeyBoardInterface, event: Event): void {
 			const word = event.data as Word;
 			this.processGuess(word);
 		},
@@ -63,7 +63,7 @@ export default {
 		getButtonOrder(s: string): number {
 			return (KeyboardLayouts.QWERTY.indexOf(s.toLocaleLowerCase()) ?? -2) + 1;
 		},
-		getLetterStatusClass(this: KeyBoard, letter: string): string {
+		getLetterStatusClass(this: KeyBoardInterface, letter: string): string {
 			const ls = this.letters.get(letter) ?? LetterResult.DEFAULT;
 			let letterStatus;
 			switch (ls) {

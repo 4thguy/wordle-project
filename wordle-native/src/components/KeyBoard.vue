@@ -1,7 +1,6 @@
 <template>
 	<FlexboxLayout
 		ref="keyboard"
-		@layoutChanged="onLayoutChange"
 		flexDirection="row"
 		justifyContent="center"
 		flexWrap="wrap"
@@ -38,13 +37,12 @@
 </template>
 
 <script lang="ts">
-import { Application } from '@nativescript/core';
 import KeyBoard from 'wordle-shared/components/KeyBoard';
 
 export default {
 	mixins: [KeyBoard],
 	methods: {
-		makeButtonsSquare() {
+		makeButtonsSquare(): void {
 			this.$nextTick(() => {
 				try {
 					this.$refs.squareButton.forEach((button) => {
@@ -55,14 +53,9 @@ export default {
 				}
 			});
 		},
-		onLayoutChange() {},
 	},
-	mounted() {
+	mounted(): void {
 		this.makeButtonsSquare();
-		Application.on(Application.orientationChangedEvent, this.onLayoutChange);
-	},
-	beforeDestroy() {
-		Application.off(Application.orientationChangedEvent, this.onLayoutChange);
 	},
 };
 </script>
