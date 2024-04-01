@@ -1,5 +1,11 @@
 <template>
-	<div class="word">
+	<FlexboxLayout
+		flexDirection="row"
+		justifyContent="center"
+		flexWrap="nowrap"
+		alignItems="center"
+		class="word"
+	>
 		<template v-if="word">
 			<letter-item v-for="(letter, i) in word" :key="i" :letter-item="letter" />
 			<letter-item v-for="i in wordLength - word.length" :key="i" />
@@ -7,33 +13,15 @@
 		<template v-else>
 			<letter-item v-for="index in wordLength" :key="index" />
 		</template>
-	</div>
+	</FlexboxLayout>
 </template>
 
-<style lang="scss">
-@import '../variables';
-
-.word {
-	display: flex;
-	flex-direction: row;
-	text-transform: uppercase;
-
-	&:first-child {
-		.letter {
-			border-top-width: #{$borderWidth * 2};
-		}
-	}
-
-	&:last-child {
-		.letter {
-			border-bottom-width: #{$borderWidth * 2};
-		}
-	}
-}
+<style scoped lang="scss">
+@import '@nativescript/theme/scss/variables/blue';
 </style>
 
 <script lang="ts">
-import LetterItem from '@/components/LetterItem.vue';
+import LetterItem from './LetterItem.vue';
 
 export default {
 	props: {

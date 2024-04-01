@@ -16,10 +16,10 @@ import StatisticsPopup from '@/components/StatisticsPopup.vue';
 	<template v-else>
 		<div class="words">
 			<template v-for="word in wordList" :key="word">
-				<word-item :word="word" />
+				<word-item :word-length="wordLength" :word="word" />
 			</template>
 			<template v-for="i in wordLength - wordList.length" :key="i">
-				<word-item />
+				<word-item :word-length="wordLength" />
 			</template>
 		</div>
 		<key-board @buttonClicked="buttonClicked" />
