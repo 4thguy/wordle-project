@@ -8,6 +8,23 @@ const { Pool } = pg;
 const pool = new Pool(Config.Postgres);
 
 /**
+ * Parses a string into a number.
+ * @param n - The string to parse.
+ * @param error - The error message to log.
+ * @returns The parsed number.
+ */
+function parseNumber(n: string, error: string): number {
+	let number = -1;
+	try {
+		number = parseInt(n);
+	}
+	catch {
+		console.error(error, n);
+	}
+	return number;
+}
+
+/**
  * Determines whether a word is in the game dictionary.
  *
  * @param word - The word to check.
@@ -29,22 +46,25 @@ async function onWordCheckRequested(word: string): Promise<boolean> {
 /**
  * Get the word that corresponds to this ID.
  *
- * @param id - The word ID to get.
+ * @param wId - The word ID to get.
  * @returns The word for the ID.
  */
-async function onWordRequested(id: string): Promise<string> {
-	let wordId = -1;
-	try {
-		wordId = parseInt(id);
-	} catch (error) {
-		console.error('Error parsing wordId:', id);
+async function onWordRequested(wId: string, wLength: string): Promise<string> {
+	let errorMessage = `Error parsing wordLength: ${wLength}`;
+	const wordLength = parseNumber(wLength, errorMessage);
+	if (wordLength < 1) {
+		throw new Error(errorMessage);
 	}
+
+	errorMessage = `Error parsing wordId: ${wId}`;
+	const wordId = parseNumber(wId, errorMessage);
 	if (wordId < 20000101) {
-		console.error('Error parsing wordId:', id);
+		throw new Error(errorMessage);
 	}
+
 	const client = await pool.connect();
 	try {
-		const result = await client.query(Queries.getTodaysWord(wordId));
+		const result = await client.query(Queries.getTodaysWord(wordId, wordLength));
 		return result[1].rows[0].name;
 	} catch (error) {
 		console.error('Error executing query:', error);
@@ -71,9 +91,9 @@ export class Database {
 	 * @param wordId 
 	 * @returns  The word for the ID.
 	 */
-	public static async getWord(wordId: string = '-1'): Promise<{ word: string }> {
+	public static async getWord(wordId: string = '-1', wordLength: string = '-1'): Promise<{ word: string }> {
 		return {
-			word: await onWordRequested(wordId),
+			word: await onWordRequested(wordId, wordLength),
 		};
 	}
 }

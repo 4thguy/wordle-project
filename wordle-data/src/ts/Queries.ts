@@ -15,16 +15,14 @@ export class Queries {
 	 * @param wordId - The word ID to get.
 	 * @returns The query to get the word for the ID.
 	 */
-	public static getTodaysWord(wordId: number): string {
-		const query: Array<string> = [];
-		// set the seed for reproducible results
-		query.push(`SELECT setseed(${wordId} / 30000101);`);
-		// generate a random integer within the range of your table size
-		query.push(
-			'WITH RandomNumber AS (SELECT floor(random() * (SELECT count(*) FROM words)) + 1 AS random_num)',
-		);
-		// select the nth item using the random number
-		query.push('SELECT * FROM words OFFSET (SELECT random_num FROM RandomNumber) - 1 LIMIT 1;');
-		return query.join('\n');
+	public static getTodaysWord(wordId: number, wordLength: number): string {
+		return `
+		SELECT SETSEED(${wordId / 30000101});
+		SELECT * 
+		FROM words 
+		WHERE LENGTH(name) = ${wordLength} 
+		ORDER BY RANDOM() 
+		LIMIT 1;
+		`
 	}
 }

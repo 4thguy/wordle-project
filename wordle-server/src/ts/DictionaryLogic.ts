@@ -1,5 +1,6 @@
-import { TimingLogic } from './TimingLogic';
+import { Config } from 'wordle-shared/config/Config';
 import { Database } from 'wordle-data/src/data';
+import { TimingLogic } from './TimingLogic';
 
 export class DictionaryLogic {
 	// Cached word
@@ -108,7 +109,7 @@ export class DictionaryLogic {
 	 * @returns The word for today.
 	 */
 	private static generateWord(): Promise<string> {
-		return Database.getWord(DictionaryLogic.cachedWordId.toString())
+		return Database.getWord(DictionaryLogic.cachedWordId.toString(), Config.WordLength.toString())
 			.then((result) => {
 				DictionaryLogic.cachedWord = result.word;
 				return DictionaryLogic.cachedWord;
