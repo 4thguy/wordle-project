@@ -1,4 +1,10 @@
 import { LetterResult } from '../enums/LetterResult';
+import type { Letter } from '../interfaces/Letter';
+
+interface LetterItemInterface {
+	letterItem: Letter;
+	getDefaultStatusClass(): string;
+}
 
 export default {
 	props: {
@@ -7,18 +13,18 @@ export default {
 			default: null,
 		},
 	},
-	computed: {
-		getInnerHTML(): string {
+	methods: {
+		getInnerText(this: LetterItemInterface): string {
 			if (!this.letterItem) {
-				return '&nbsp;';
+				return ' ';
 			}
 			return this.letterItem.data;
 		},
 		getDefaultStatusClass(): string {
 			return 'default';
 		},
-		getLetterStatusClass(): string {
-			let letterStatus = this.getDefaultStatusClass;
+		getLetterStatusClass(this: LetterItemInterface): string {
+			let letterStatus = this.getDefaultStatusClass();
 
 			if (this.letterItem) {
 				switch (this.letterItem.status) {

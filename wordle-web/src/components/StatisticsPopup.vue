@@ -36,7 +36,7 @@
 
 <script lang="ts">
 import { AppEvents } from '@/enums/AppEvents';
-import { StatsLogic } from '@/ts/StatsLogic';
+import { StatsLogic } from 'wordle-shared/ts/StatsLogic';
 import { Subscriptions } from 'wordle-shared/ts/Subscriptions';
 
 export default {
@@ -70,3 +70,4 @@ export default {
 	},
 };
 </script>
+wordle-shared/ts/StatsLogic

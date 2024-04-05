@@ -36,30 +36,6 @@
 	</FlexboxLayout>
 </template>
 
-<script lang="ts">
-import KeyBoard from 'wordle-shared/components/KeyBoard';
-
-export default {
-	mixins: [KeyBoard],
-	methods: {
-		makeButtonsSquare(): void {
-			this.$nextTick(() => {
-				try {
-					this.$refs.squareButton.forEach((button) => {
-						button.nativeView.width = `${button.nativeView.getMeasuredHeight()}px`;
-					});
-				} catch (error) {
-					console.log('error');
-				}
-			});
-		},
-	},
-	mounted(): void {
-		this.makeButtonsSquare();
-	},
-};
-</script>
-
 <style scoped lang="scss">
 .button {
 	text-transform: uppercase;
@@ -70,3 +46,27 @@ export default {
 	}
 }
 </style>
+
+<script lang="ts">
+import KeyBoard from 'wordle-shared/components/KeyBoard';
+
+export default {
+	mixins: [KeyBoard],
+	methods: {
+		makeButtonsSquare(): void {
+			this.$nextTick(() => {
+				try {
+					(this.$refs.squareButton as any[]).forEach((button: any) => {
+						button.nativeView.width = `${button.nativeView.getMeasuredHeight()}px`;
+					});
+				} catch (error) {
+					console.log('error');
+				}
+			});
+		},
+	},
+	mounted(): void {
+		(this as any).makeButtonsSquare();
+	},
+};
+</script>

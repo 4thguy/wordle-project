@@ -115,6 +115,7 @@ export class DictionaryLogic {
 				return DictionaryLogic.cachedWord;
 			})
 			.catch((error) => {
+				console.error('Error generating word based on word ID: ', DictionaryLogic.cachedWordId);
 				return '';
 			});
 	}

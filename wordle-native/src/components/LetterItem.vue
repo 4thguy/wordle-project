@@ -4,14 +4,18 @@
 		justifyContent="center"
 		flexWrap="nowrap"
 		alignItems="center"
-		:class="['letter', `letter--${getLetterStatusClass}`]"
+		:class="['letter', `letter--${getLetterStatusClass()}`]"
 	>
-		<Label :text="getInnerHTML" />
+		<Label :text="getInnerText()" />
 	</FlexboxLayout>
 </template>
 
 <style scoped lang="scss">
-@import '@nativescript/theme/scss/variables/blue';
+.letter {
+	text-transform: uppercase;
+	background: red;
+	margin: 0;
+}
 </style>
 
 <script lang="ts">

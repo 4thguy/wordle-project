@@ -1,5 +1,5 @@
 <template>
-	<div :class="['letter', `letter--${getLetterStatusClass}`]" v-html="getInnerHTML" />
+	<div :class="['letter', `letter--${getLetterStatusClass()}`]" v-html="getInnerText()" />
 </template>
 
 <style lang="scss">

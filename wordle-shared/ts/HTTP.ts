@@ -49,6 +49,7 @@ export class HTTP {
 		options: ApiRequestOptions,
 		timesToRetry: number = this.timesToRetry,
 	): Promise<T> {
+		console.log('Connecting to ' + url);
 		return new Promise((resolve, reject) => {
 			fetch(url, options)
 				.then((response) => {

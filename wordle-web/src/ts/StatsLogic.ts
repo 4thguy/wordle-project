@@ -1,6 +1,6 @@
-import { Subscriptions } from '../../../wordle-shared/ts/Subscriptions';
+import { Subscriptions } from 'wordle-shared/ts/Subscriptions';
 import { AppEvents } from '@/enums/AppEvents';
-import type { Stats } from '@/interfaces/Stats';
+import type { Stats } from 'wordle-shared/interfaces/Stats';
 
 export class StatsLogic {
 	// The property name for the stats object in local storage.

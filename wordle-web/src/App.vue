@@ -15,12 +15,8 @@ import StatisticsPopup from '@/components/StatisticsPopup.vue';
 	</template>
 	<template v-else>
 		<div class="words">
-			<template v-for="word in wordList" :key="word">
-				<word-item :word-length="wordLength" :word="word" />
-			</template>
-			<template v-for="i in wordLength - wordList.length" :key="i">
-				<word-item :word-length="wordLength" />
-			</template>
+			<word-item v-for="(word, i) in wordList" :key="i" :word-length="wordLength" :word="word" />
+			<word-item v-for="i in wordLength - wordList.length" :key="i" :word-length="wordLength" />
 		</div>
 		<key-board @buttonClicked="buttonClicked" />
 	</template>
@@ -141,7 +137,7 @@ export default {
 			clientLogic.updateSelectedLetters(event.data, this.tmpWord);
 		},
 		jiggleWordlist(guessedWord?: Word): void {
-			if (!guessedWord) {
+			if (!guessedWord || guessedWord.length === 0) {
 				this.wordList.pop();
 			} else {
 				this.tmpWord.forEach((letter: Letter, i: number) => {
@@ -157,4 +153,3 @@ export default {
 	},
 };
 </script>
-../../wordle-shared/enums/GameEvents
