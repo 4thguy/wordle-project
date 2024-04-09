@@ -58,13 +58,14 @@ import StatisticsPopup from '@/components/StatisticsPopup.vue';
 import { Config } from '@/config/Config';
 import { ClientLogic } from '@/ts/ClientLogic';
 import { Subscriptions } from 'wordle-shared/ts/Subscriptions';
+import { API } from 'wordle-shared/ts/API';
 import { AppEvents } from '@/enums/AppEvents';
 import { GameEvents } from 'wordle-shared/enums/GameEvents';
 import type { Word } from 'wordle-shared/interfaces/Word';
 import type { Letter } from 'wordle-shared/interfaces/Letter';
 import type { Event } from 'wordle-shared/interfaces/Event';
 
-const clientLogic = new ClientLogic();
+let clientLogic: ClientLogic;
 
 export default {
 	data() {
@@ -77,6 +78,15 @@ export default {
 			configLoaded: false,
 			canMakeGuesses: false,
 		};
+	},
+	created: function () {
+		API.setConfig(Config);
+
+		clientLogic = new ClientLogic();
+		clientLogic.setConfig(Config);
+		clientLogic.setStatsLogic(null);
+
+		Config.requestConfig();
 	},
 	mounted: function () {
 		const subscriptions = Subscriptions.getSingleton();

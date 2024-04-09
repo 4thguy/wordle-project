@@ -5,7 +5,7 @@ let location = '';
 try {
 	location = '//' + window.location.hostname;
 } catch {
-	location = '//localhost';
+	location = 'http://192.168.0.14';
 }
 
 export class Config {

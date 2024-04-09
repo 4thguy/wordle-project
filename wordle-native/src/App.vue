@@ -20,15 +20,16 @@ import KeyBoard from './components/KeyBoard.vue';
 import WordItem from './components/WordItem.vue';
 import { GridLayout } from '@nativescript/core';
 import { Config } from './config/Config';
-import { ClientLogic } from './ts/ClientLogic';
+import { ClientLogic } from 'wordle-shared/ts/ClientLogic';
 import { Subscriptions } from 'wordle-shared/ts/Subscriptions';
-import { AppEvents } from './enums/AppEvents';
+import { API } from 'wordle-shared/ts/API';
 import { GameEvents } from 'wordle-shared/enums/GameEvents';
+import { AppEvents } from './enums/AppEvents';
 import type { Word } from 'wordle-shared/interfaces/Word';
 import type { Letter } from 'wordle-shared/interfaces/Letter';
 import type { Event } from 'wordle-shared/interfaces/Event';
 
-const clientLogic = new ClientLogic();
+let clientLogic: ClientLogic;
 
 export default Vue.extend({
 	components: {
@@ -45,6 +46,15 @@ export default Vue.extend({
 			configLoaded: false,
 			canMakeGuesses: false,
 		};
+	},
+	created: function () {
+		API.setConfig(Config);
+
+		clientLogic = new ClientLogic();
+		clientLogic.setConfig(Config);
+		clientLogic.setStatsLogic(null);
+
+		Config.requestConfig();
 	},
 	mounted: function () {
 		const subscriptions = Subscriptions.getSingleton();

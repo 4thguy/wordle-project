@@ -11,12 +11,24 @@ import type { Guess } from 'wordle-shared/interfaces/Guess';
 import type { Event } from 'wordle-shared/interfaces/Event';
 
 export class ClientLogic {
-	protected statsLogic = StatsLogic;
-	protected config = Config;
+	private Config = Config;
+	private api = API;
+	private StatsLogic = StatsLogic;
 
 	private selectedLetters: Word = [];
 
 	private guessesSubmitted: number = 0;
+
+	public setConfig(config: any): void {
+		this.Config = config;
+	}
+
+	public setAPI(api: any): void {
+		this.api = api;
+	}
+	public setStatsLogic(statsLogic: any): void {
+		this.StatsLogic = statsLogic;
+	}
 
 	/**
 	 * Validate the word and submit the guess to the server.
@@ -24,12 +36,12 @@ export class ClientLogic {
 	 */
 	public validateGuess(word: Word): void {
 		const subscriptions = Subscriptions.getSingleton();
-		if (word.length === this.config.WordLength) {
+		if (word.length === this.Config.WordLength) {
 			let guess = '';
 			word.forEach((letter: Letter) => {
 				guess += letter.data;
 			});
-			API.submitGuess(guess, this.config.WordId).then((responseData: Guess) => {
+			API.submitGuess(guess, this.Config.WordId).then((responseData: Guess) => {
 				switch (responseData.validationResult) {
 					// If the word is in the dictionary, check if the word is correct.
 					case ValidationResult.IN_DICTIONARY: {
@@ -42,7 +54,7 @@ export class ClientLogic {
 								return;
 							}
 						});
-						const gameOver = this.guessesSubmitted >= this.config.MaxTries;
+						const gameOver = this.guessesSubmitted >= this.Config.MaxTries;
 						// Notify the user if the word is correct or incorrect.
 						subscriptions.onEvent({
 							data: responseData.word,
@@ -52,9 +64,9 @@ export class ClientLogic {
 								? GameEvents.GameOver
 								: GameEvents.GuessIncorrect,
 						});
-						this.statsLogic.UpdateDailyStats();
+						this.StatsLogic.UpdateDailyStats();
 						if (guessCorrect) {
-							this.statsLogic.UpdateWinStats(this.guessesSubmitted);
+							this.StatsLogic.UpdateWinStats(this.guessesSubmitted);
 						}
 						break;
 					}
@@ -91,7 +103,7 @@ export class ClientLogic {
 
 		switch (letter) {
 			case 'ENTER': {
-				if (this.selectedLetters.length === this.config.WordLength) {
+				if (this.selectedLetters.length === this.Config.WordLength) {
 					this.validateGuess(this.selectedLetters);
 					const event = {
 						name: GameEvents.GuessSubmitted,
@@ -106,7 +118,7 @@ export class ClientLogic {
 				break;
 			}
 			default: {
-				if (this.selectedLetters.length !== this.config.WordLength) {
+				if (this.selectedLetters.length !== this.Config.WordLength) {
 					if (this.validateLetter(letter)) {
 						this.selectedLetters.push({
 							data: letter,

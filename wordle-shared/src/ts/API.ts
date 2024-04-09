@@ -4,7 +4,16 @@ import type { Endpoints } from 'wordle-shared/config/Endpoints';
 import type { Guess } from 'wordle-shared/interfaces/Guess';
 
 export class API {
-	private static config = Config;
+	private static Config = Config;
+	private static HTTP = HTTP;
+
+	public static setConfig(config: any) {
+		API.Config = config;
+	}
+
+	public static setHTTP(http: any) {
+		API.HTTP = http;
+	}
 
 	/**
 	 * Build the URL for the API
@@ -12,7 +21,7 @@ export class API {
 	 * @returns URL
 	 */
 	private static buildUrl(endpoint: Endpoints) {
-		return API.config.wordleIpAddress + ':' + API.config.wordleServerPort + endpoint;
+		return `${API.Config.wordleIpAddress}:${API.Config.wordleServerPort}${endpoint}`;
 	}
 
 	/**
@@ -20,7 +29,7 @@ export class API {
 	 * @returns API.config
 	 */
 	public static async fetchConfig(): Promise<Config> {
-		return HTTP.GET(this.buildUrl(API.config.Endpoints.CONFIG));
+		return API.HTTP.GET(this.buildUrl(API.Config.Endpoints.CONFIG));
 	}
 
 	/**
@@ -30,12 +39,12 @@ export class API {
 	 * @returns Guess
 	 */
 	public static async submitGuess(guess: string, wordId: number): Promise<Guess> {
-		const url = this.buildUrl(API.config.Endpoints.GUESS);
+		const url = this.buildUrl(API.Config.Endpoints.GUESS);
 		const data = {
 			guess: guess,
 			wordId: wordId,
 		};
 
-		return HTTP.POST<Guess>(url, data);
+		return API.HTTP.POST<Guess>(url, data);
 	}
 }
