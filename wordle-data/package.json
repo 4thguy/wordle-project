@@ -7,5 +7,17 @@
 	"dependencies": {
 		"@types/pg": "^8.11.4",
 		"pg": "^8.11.3"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./database": "./src/database.ts"
+	},
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"*": [
+				"src/*"
+			]
+		}
 	}
 }

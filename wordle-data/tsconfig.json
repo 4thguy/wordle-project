@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"target": "ES2020",
+		"module": "esnext",
+		"moduleResolution": "node",
+		"lib": ["dom", "ESNext"],
+		"sourceMap": true,
+		"noEmitHelpers": true,
+		"importHelpers": true,
+		"baseUrl": ".",
+		"paths": {
+			"wordle-data/*": ["./src/*"]
+		},
+		"typeRoots": ["types"],
+		"types": ["node"],
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"skipLibCheck": true
+	}
+}

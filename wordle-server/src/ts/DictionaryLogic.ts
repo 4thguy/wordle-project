@@ -1,5 +1,5 @@
 import { Config } from 'wordle-shared/config/Config';
-import { Database } from 'wordle-data/src/data';
+import { Database } from 'wordle-data/database';
 import { TimingLogic } from './TimingLogic';
 
 export class DictionaryLogic {
