@@ -10,9 +10,7 @@
 		"importHelpers": true,
 		"baseUrl": ".",
 		"paths": {
-			"~/*": ["src/*"],
-			"@/*": ["src/*"],
-			"wordle-shared/*": ["node_modules/wordle-shared/src/*"]
+			"wordle-shared/*": ["./src/*"]
 		},
 		"typeRoots": ["types"],
 		"types": ["node"],
@@ -21,7 +19,5 @@
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"skipLibCheck": true
-	},
-	"include": ["src", "types"],
-	"exclude": ["node_modules", "platforms"]
+	}
 }

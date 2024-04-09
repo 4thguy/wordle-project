@@ -1,4 +1,4 @@
-import type { Stats } from '../interfaces/Stats';
+import type { Stats } from 'wordle-shared/interfaces/Stats';
 
 export class StatsLogic {
 	/**
@@ -6,7 +6,7 @@ export class StatsLogic {
 	 * @returns the current stats object.
 	 */
 	public static GetStatsObject(): Stats {
-        return {
+		return {
 			currentStreak: 0,
 			maxStreak: 0,
 			lastUpdate: 0,

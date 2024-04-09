@@ -3,5 +3,36 @@
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
-	"scripts": {}
+	"scripts": {},
+	"exports": {
+		".": "./src/index.ts",
+		"./components/KeyBoard": "./src/components/KeyBoard.ts",
+		"./components/LetterItem": "./src/components/LetterItem.ts",
+		"./config/Config": "./src/config/Config.ts",
+		"./config/Endpoints": "./src/config/Endpoints.ts",
+		"./data/KeyboardLayouts": "./src/data/KeyboardLayouts.ts",
+		"./enums/GameEvents": "./src/enums/GameEvents.ts",
+		"./enums/HttpMethod": "./src/enums/HttpMethod.ts",
+		"./enums/LetterResult": "./src/enums/LetterResult.ts",
+		"./enums/ValidationResult": "./src/enums/ValidationResult.ts",
+		"./interfaces/Event": "./src/interfaces/Event.ts",
+		"./interfaces/Guess": "./src/interfaces/Guess.ts",
+		"./interfaces/HttpRequestOptions": "./src/interfaces/HttpRequestOptions.ts",
+		"./interfaces/Letter": "./src/interfaces/Letter.ts",
+		"./interfaces/Stats": "./src/interfaces/Stats.ts",
+		"./interfaces/Word": "./src/interfaces/Word.ts",
+		"./ts/API": "./src/ts/API.ts",
+		"./ts/ClientLogic": "./src/ts/ClientLogic.ts",
+		"./ts/HTTP": "./src/ts/HTTP.ts",
+		"./ts/StatsLogic": "./src/ts/StatsLogic.ts",
+		"./ts/Subscriptions": "./src/ts/Subscriptions.ts"
+	},
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"*": [
+				"src/*"
+			]
+		}
+	}
 }

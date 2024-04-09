@@ -1,14 +1,14 @@
-import { Config } from '../config/Config';
-import { Subscriptions } from './Subscriptions';
-import { API } from './API';
-import { StatsLogic } from './StatsLogic';
-import { LetterResult } from '../enums/LetterResult';
-import { ValidationResult } from '../enums/ValidationResult';
-import { GameEvents } from '../enums/GameEvents';
-import type { Letter } from '../interfaces/Letter';
-import type { Word } from '../interfaces/Word';
-import type { Guess } from '../interfaces/Guess';
-import type { Event } from '../interfaces/Event';
+import { Config } from 'wordle-shared/config/Config';
+import { Subscriptions } from 'wordle-shared/ts/Subscriptions';
+import { API } from 'wordle-shared/ts/API';
+import { StatsLogic } from 'wordle-shared/ts/StatsLogic';
+import { LetterResult } from 'wordle-shared/enums/LetterResult';
+import { ValidationResult } from 'wordle-shared/enums/ValidationResult';
+import { GameEvents } from 'wordle-shared/enums/GameEvents';
+import type { Letter } from 'wordle-shared/interfaces/Letter';
+import type { Word } from 'wordle-shared/interfaces/Word';
+import type { Guess } from 'wordle-shared/interfaces/Guess';
+import type { Event } from 'wordle-shared/interfaces/Event';
 
 export class ClientLogic {
 	protected statsLogic = StatsLogic;

@@ -10,15 +10,15 @@ export class Config extends BaseConfig {
 	private static subscriptions = Subscriptions.getSingleton();
 
 	private static onConfigFetched(response: any) {
-    this.WordLength = response.WordLength;
-    this.MaxTries = response.MaxTries;
-    this.Endpoints = response.Endpoints;
-    this.WordId = response.WordId;
-    this.Ready = true;
-    this.subscriptions.onEvent({
-      name: AppEvents.ConfigUpdated,
-      data: response,
-    });
+		this.WordLength = response.WordLength;
+		this.MaxTries = response.MaxTries;
+		this.Endpoints = response.Endpoints;
+		this.WordId = response.WordId;
+		this.Ready = true;
+		this.subscriptions.onEvent({
+			name: AppEvents.ConfigUpdated,
+			data: response,
+		});
 	}
 
 	public static requestConfig(): void {

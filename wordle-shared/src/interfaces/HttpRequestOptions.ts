@@ -1,4 +1,4 @@
-import type { HttpMethod } from '../enums/HttpMethod';
+import type { HttpMethod } from 'wordle-shared/enums/HttpMethod';
 
 export interface ApiRequestOptions {
 	method: HttpMethod;

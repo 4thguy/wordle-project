@@ -1,7 +1,7 @@
-import { Config } from '../config/Config';
-import { HTTP } from './HTTP';
-import type { Endpoints } from '../config/Endpoints';
-import type { Guess } from '../interfaces/Guess';
+import { Config } from 'wordle-shared/config/Config';
+import { HTTP } from 'wordle-shared/ts/HTTP';
+import type { Endpoints } from 'wordle-shared/config/Endpoints';
+import type { Guess } from 'wordle-shared/interfaces/Guess';
 
 export class API {
 	private static config = Config;

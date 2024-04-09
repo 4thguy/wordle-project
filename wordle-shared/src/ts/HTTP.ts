@@ -1,5 +1,5 @@
-import { HttpMethod } from '../enums/HttpMethod';
-import type { ApiRequestOptions } from '../interfaces/HttpRequestOptions';
+import { HttpMethod } from 'wordle-shared/enums/HttpMethod';
+import type { ApiRequestOptions } from 'wordle-shared/interfaces/HttpRequestOptions';
 
 export class HTTP {
 	private static timesToRetry = 3;

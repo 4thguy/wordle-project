@@ -1,10 +1,10 @@
-import { LetterResult } from '../enums/LetterResult';
-import { GameEvents } from '../enums/GameEvents';
-import { Subscriptions } from '../ts/Subscriptions';
-import { KeyboardLayouts } from '../data/KeyboardLayouts';
-import type { Word } from '../interfaces/Word';
-import type { Letter } from '../interfaces/Letter';
-import type { Event } from '../interfaces/Event';
+import { LetterResult } from 'wordle-shared/enums/LetterResult';
+import { GameEvents } from 'wordle-shared/enums/GameEvents';
+import { Subscriptions } from 'wordle-shared/ts/Subscriptions';
+import { KeyboardLayouts } from 'wordle-shared/data/KeyboardLayouts';
+import type { Word } from 'wordle-shared/interfaces/Word';
+import type { Letter } from 'wordle-shared/interfaces/Letter';
+import type { Event } from 'wordle-shared/interfaces/Event';
 
 interface KeyBoardInterface {
 	letters: Map<string, LetterResult>;

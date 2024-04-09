@@ -10,7 +10,8 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      'wordle-shared': fileURLToPath(new URL('node_modules/wordle-shared/src', import.meta.url)),
     }
   }
 })

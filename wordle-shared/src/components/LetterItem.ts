@@ -1,5 +1,5 @@
-import { LetterResult } from '../enums/LetterResult';
-import type { Letter } from '../interfaces/Letter';
+import { LetterResult } from 'wordle-shared/enums/LetterResult';
+import type { Letter } from 'wordle-shared/interfaces/Letter';
 
 interface LetterItemInterface {
 	letterItem: Letter;
