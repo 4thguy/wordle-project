@@ -41,7 +41,7 @@ export default {
 	methods: {
 		processGuess(this: KeyBoardInterface, word: Word): void {
 			word.forEach((letter: Letter) => {
-				this.letters.set(letter.data, letter.status);
+				this.letters.set(letter.data.toLocaleLowerCase(), letter.status);
 			});
 		},
 		onPressButton(this: KeyBoardInterface, l: string): void {

@@ -118,30 +118,30 @@ export default {
 			this.configLoaded = true;
 		},
 		onServerError(event: Event): void {
-			alert('Unable to contact server');
+			this.alert('Unable to contact server');
 		},
 		onGuessSubmitted(event: Event): void {},
 		onGuessCorrect(event: Event): void {
 			this.canMakeGuesses = false;
 			this.jiggleWordlist(event.data);
-			alert('Congratulations, you guessed the word!');
+			this.alert('Congratulations, you guessed the word!');
 		},
 		onGuessIncorrect(event: Event): void {
 			this.jiggleWordlist(event.data);
 		},
 		onGuessNotInDictionary(event: Event): void {
 			this.jiggleWordlist();
-			alert('Sorry, word is not in dictionary');
+			this.alert('Sorry, word is not in dictionary');
 		},
 		onGameExpired(event: Event): void {
 			this.canMakeGuesses = false;
 			this.jiggleWordlist(event.data);
-			alert('Sorry, time is up to guess this word');
+			this.alert('Sorry, time is up to guess this word');
 		},
 		onGameOver(event: Event): void {
 			this.canMakeGuesses = false;
 			this.jiggleWordlist(event.data);
-			alert('Sorry, better luck next time!');
+			this.alert('Sorry, better luck next time!');
 		},
 		buttonClicked(event: Event): void {
 			clientLogic.updateSelectedLetters(event.data, this.tmpWord);
@@ -159,6 +159,9 @@ export default {
 				this.tmpWord = [];
 				this.wordList.push(this.tmpWord);
 			}
+		},
+		alert(message: string): void {
+			alert(message);
 		},
 	},
 };

@@ -3,7 +3,7 @@
 		<div
 			v-for="l in letters"
 			:key="l[0]"
-			:class="['button', `button--${l[0]}`, `button--${getLetterStatusClass(l[1])}`]"
+			:class="['button', `button--${l[0]}`, `button--${getLetterStatusClass(l[0])}`]"
 			:style="{ order: getButtonOrder(l[0]) }"
 			v-text="l[0]"
 			@click="onPressButton(l[0])"
