@@ -14,11 +14,16 @@ import StatisticsPopup from '@/components/StatisticsPopup.vue';
 		/>
 	</template>
 	<template v-else>
+		<button class="btn btn-primary btn-stats" @click="showStatisticsModal">Stats</button>
 		<div class="words">
 			<word-item v-for="(word, i) in wordList" :key="i" :word-length="wordLength" :word="word" />
 			<word-item v-for="i in wordLength - wordList.length" :key="i" :word-length="wordLength" />
 		</div>
 		<key-board @buttonClicked="buttonClicked" />
+	</template>
+
+	<template v-if="statisticsModalVisible">
+		<statistics-popup @closeModal="hideStatisticsModal" />
 	</template>
 </template>
 
@@ -26,6 +31,8 @@ import StatisticsPopup from '@/components/StatisticsPopup.vue';
 @import 'variables';
 @import 'bootstrap/scss/reboot';
 @import 'bootstrap/scss/root';
+@import 'bootstrap/scss/buttons';
+@import 'bootstrap/scss/modal';
 
 #app {
 	display: flex;
@@ -45,6 +52,12 @@ import StatisticsPopup from '@/components/StatisticsPopup.vue';
 	}
 }
 
+.btn-stats {
+	position: absolute;
+	top: $grid-gutter-width;
+	right: $grid-gutter-width;
+}
+
 .words {
 	display: flex;
 	flex-direction: column;
@@ -57,6 +70,7 @@ import StatisticsPopup from '@/components/StatisticsPopup.vue';
 <script lang="ts">
 import { Config } from '@/config/Config';
 import { ClientLogic } from '@/ts/ClientLogic';
+import { StatsLogic } from '@/ts/StatsLogic';
 import { Subscriptions } from 'wordle-shared/ts/Subscriptions';
 import { API } from 'wordle-shared/ts/API';
 import { AppEvents } from '@/enums/AppEvents';
@@ -77,6 +91,7 @@ export default {
 			ready: false,
 			configLoaded: false,
 			canMakeGuesses: false,
+			statisticsModalVisible: false,
 		};
 	},
 	created: function () {
@@ -84,7 +99,7 @@ export default {
 
 		clientLogic = new ClientLogic();
 		clientLogic.setConfig(Config);
-		clientLogic.setStatsLogic(null);
+		clientLogic.setStatsLogic(StatsLogic);
 
 		Config.requestConfig();
 	},
@@ -162,6 +177,12 @@ export default {
 		},
 		alert(message: string): void {
 			alert(message);
+		},
+		showStatisticsModal(): void {
+			this.statisticsModalVisible = true;
+		},
+		hideStatisticsModal(): void {
+			this.statisticsModalVisible = false;
 		},
 	},
 };
