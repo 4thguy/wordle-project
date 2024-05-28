@@ -71,10 +71,11 @@ import StatisticsPopup from '@/components/StatisticsPopup.vue';
 import { Config } from '@/config/Config';
 import { ClientLogic } from '@/ts/ClientLogic';
 import { StatsLogic } from '@/ts/StatsLogic';
+import { ProgressTrackerLogic } from '@/ts/ProgressTrackerLogic';
 import { Subscriptions } from 'wordle-shared/ts/Subscriptions';
 import { API } from 'wordle-shared/ts/API';
-import { AppEvents } from '@/enums/AppEvents';
 import { GameEvents } from 'wordle-shared/enums/GameEvents';
+import { AppEvents } from '@/enums/AppEvents';
 import type { Word } from 'wordle-shared/interfaces/Word';
 import type { Letter } from 'wordle-shared/interfaces/Letter';
 import type { Event } from 'wordle-shared/interfaces/Event';
@@ -116,15 +117,21 @@ export default {
 		);
 		subscriptions.subscribeToEvent(GameEvents.GameExpired, this.onGameExpired.bind(this));
 		subscriptions.subscribeToEvent(GameEvents.GameOver, this.onGameOver.bind(this));
-		this.wordList.push(this.tmpWord);
 	},
 	methods: {
 		onLoadingAnimationIteration(event: Event): void {
 			// do nothing
 		},
 		onLoadingAnimationDismissed(event: Event): void {
+			const progress = ProgressTrackerLogic.GetProgressTrackerObject();
+			progress.wordItems.forEach((wordItem) => {
+				this.wordList.push(wordItem);
+			});
+			if (this.wordList.length < this.maxTries) {
+				this.wordList.push(this.tmpWord);
+				this.canMakeGuesses = true;
+			}
 			this.ready = true;
-			this.canMakeGuesses = true;
 		},
 		onConfigUpdated(event: Event): void {
 			this.wordLength = Config.WordLength;
@@ -139,10 +146,12 @@ export default {
 		onGuessCorrect(event: Event): void {
 			this.canMakeGuesses = false;
 			this.jiggleWordlist(event.data);
+			ProgressTrackerLogic.UpdateProgressTrackerStats(event.data);
 			this.alert('Congratulations, you guessed the word!');
 		},
 		onGuessIncorrect(event: Event): void {
 			this.jiggleWordlist(event.data);
+			ProgressTrackerLogic.UpdateProgressTrackerStats(event.data);
 		},
 		onGuessNotInDictionary(event: Event): void {
 			this.jiggleWordlist();
@@ -156,6 +165,7 @@ export default {
 		onGameOver(event: Event): void {
 			this.canMakeGuesses = false;
 			this.jiggleWordlist(event.data);
+			ProgressTrackerLogic.UpdateProgressTrackerStats(event.data);
 			this.alert('Sorry, better luck next time!');
 		},
 		buttonClicked(event: Event): void {
